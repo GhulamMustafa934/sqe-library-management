@@ -1,20 +1,20 @@
 class Book:
     """A class representing a book in the library."""
 
-    def __init__(self, title: str, author: str, book_id: str):
+    def __init__(self, title: str, author: str, catalog_number: str):
         """
         Initialize a Book object.
 
         Args:
             title: Book title
             author: Book author
-            book_id: Book ID number
+            catalog_number: Catalog number
         """
-        if not book_id:
-            raise ValueError("Book ID cannot be empty")
+        if not catalog_number:
+            raise ValueError("Catalog number cannot be empty")
         self.title = title
         self.author = author
-        self.book_id = book_id
+        self.catalog_number = catalog_number
         self.is_borrowed = False
 
     def borrow_book(self) -> None:
