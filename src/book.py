@@ -1,5 +1,5 @@
 class Book:
-    """A class representing a book in the library."""
+    """A class representing a book in the LIBRARY MANAGEMENT system."""
 
     def __init__(self, title: str, author: str, catalog_number: str):
         """
