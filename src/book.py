@@ -1,5 +1,7 @@
 class Book:
+
     """A class representing a book in the LIBRARY system."""
+
 
     def __init__(self, title: str, author: str, catalog_number: str):
         """
