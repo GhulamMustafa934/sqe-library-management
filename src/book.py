@@ -34,7 +34,7 @@ class Book:
             ValueError: If the book is already borrowed
         """
         if self.is_borrowed:
-            raise ValueError("Book is already borrowed")
+            raise ValueError(f"Book '{self.title}' is already borrowed")
         self.is_borrowed = True
 
     def return_book(self) -> None:
@@ -45,5 +45,5 @@ class Book:
             ValueError: If the book is not borrowed
         """
         if not self.is_borrowed:
-            raise ValueError("Book is not borrowed")
+            raise ValueError(f"Book '{self.title}' is not borrowed")
         self.is_borrowed = False
