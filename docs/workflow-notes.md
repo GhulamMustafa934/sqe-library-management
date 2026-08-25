@@ -45,3 +45,57 @@ dfc313d Merge pull request #10 from GhulamMustafa934/feature/rename-field-b
 **Rewritten:** `docs: add screenshot of merge conflict resolution in workflow-notes.md`
 
 **Why it's better:** The rewritten version specifies exactly what screenshot was added and where, making it more descriptive.
+
+
+## Task 5 — Reflection Exercise: Development Workflow
+
+### How a Change Flows from Idea to Released
+IDEA
+↓
+ISSUE Created (GitHub Issues)
+↓
+LABEL Added (bug/enhancement, severity, priority)
+↓
+MILESTONE Assigned
+↓
+BRANCH Created (feature/fix-<description>)
+↓
+CODE Written & Committed (Atomic commits with Conventional Commits)
+↓
+PUSH to Remote
+↓
+PULL REQUEST Opened
+↓
+CODE REVIEW (QA/Team Review)
+↓
+FEEDBACK & CHANGES (if needed)
+↓
+APPROVAL (1+ Approvals)
+↓
+MERGE (Squash and merge)
+↓
+ISSUE AUTO-CLOSED (via 'Fixes #<n>')
+↓
+CI/CD PIPELINE (Tests, Build, Deploy)
+↓
+RELEASE (Tagged version)
+
+
+### QA Engineer Interventions
+
+| Stage | QA Intervention |
+|-------|-----------------|
+| **Issue Creation** | QA reviews the bug report to ensure it's reproducible and has clear steps |
+| **Triage** | QA helps assign severity/priority labels based on impact |
+| **Code Review** | QA reviews PR for edge cases, test coverage, and regression risk |
+| **Testing** | QA runs manual/automated tests to verify the fix works |
+| **CI Pipeline** | QA ensures tests pass and code quality checks are satisfied |
+| **Release** | QA performs final regression testing before deployment |
+
+### Key Takeaways
+
+1. **Issues** → Capture all work items (bugs, features, tasks)
+2. **Branches** → Isolate changes for each issue
+3. **Pull Requests** → Enable code review and quality checks
+4. **QA** → Ensures quality at every stage, not just at the end
+5. **Automated CI** → Catches issues early in the workflow
