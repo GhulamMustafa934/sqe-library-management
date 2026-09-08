@@ -66,3 +66,29 @@ class Library:
             Number of books on loan
         """
         return len(self.member_books.get(member_id, []))
+
+
+def validate_isbn(isbn: str) -> bool:
+    """
+    Validate an ISBN string.
+
+    Args:
+        isbn: ISBN string to validate
+
+    Returns:
+        True if valid, False otherwise
+
+    Raises:
+        ValueError: If ISBN is empty, contains non-numeric characters,
+                    or is not exactly 13 digits
+    """
+    if not isbn:
+        raise ValueError("ISBN cannot be empty")
+
+    if not isbn.isdigit():
+        raise ValueError("ISBN must contain only numeric digits")
+
+    if len(isbn) != 13:
+        raise ValueError(f"ISBN must be exactly 13 digits (got {len(isbn)})")
+
+    return True
