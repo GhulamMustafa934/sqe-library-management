@@ -156,6 +156,7 @@ All project documentation lives in the [`docs/`](./docs) folder:
 <div align="center">
 
 **Ghulam Mustafa**
+<br>
 BS Software Engineering · Sukkur IBA University
 
 </div>
