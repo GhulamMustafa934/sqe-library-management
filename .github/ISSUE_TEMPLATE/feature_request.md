@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ## Problem
-<!-- What problem does this feature solve? -->
+<!-- What New-Item -ItemType File -Path ".github/pull_request_template.md" -Force does this feature solve? -->
 
 ## Proposed Solution
 <!-- Describe the solution you'd like to see. -->

@@ -15,11 +15,9 @@ from library import fine_tier
     (45, 'Severe'),
 ])
 def test_fine_tier_valid_classes(days, expected):
-    """Test valid equivalence classes for fine_tier."""
     assert fine_tier(days) == expected
 
 
 def test_fine_tier_negative_days_raises():
-    """Test that negative days raise ValueError."""
     with pytest.raises(ValueError):
         fine_tier(-3)
