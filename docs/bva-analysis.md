@@ -25,3 +25,22 @@
 ## 4. BVA Limitation Note
 
 BVA complements EP by testing the exact boundaries where defects are most likely. It catches off-by-one errors that EP alone might miss.
+
+## 5. Defect Found Through BVA
+
+### Defect #21 — Off-by-One Error in fine_tier at Boundary 15
+
+| Item | Detail |
+|------|--------|
+| **Issue** | #21 |
+| **Discovered by** | BVA test `test_fine_tier_boundaries[15-High]` |
+| **Root cause** | Code used `15 < days_overdue <= 30` instead of `15 <= days_overdue <= 30` |
+| **Impact** | Day 15 was incorrectly classified as 'Severe' instead of 'High' |
+| **Fix** | Corrected the comparison operator on branch `fix/fine-tier-boundary` |
+| **PR** | Merged and auto-closed Issue #21 via `Fixes #21` |
+| **Severity** | High |
+| **Priority** | P1 |
+
+### Lesson Learned
+
+This defect demonstrates why EP alone is insufficient — EP would test 14 (Medium) and 20 (High) but would miss the exact boundary at 15. BVA specifically targets boundaries, catching off-by-one errors that EP cannot detect.
