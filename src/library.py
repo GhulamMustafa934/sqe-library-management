@@ -20,7 +20,7 @@ def fine_tier(days_overdue: int) -> str:
         return 'Low'
     elif 8 <= days_overdue <= 14:
         return 'Medium'
-    elif 15 <= days_overdue <= 30:
+    elif 15 < days_overdue <= 30:  # BUG: should be <=
         return 'High'
     else:  # days_overdue >= 31
         return 'Severe'
