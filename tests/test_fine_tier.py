@@ -8,7 +8,7 @@ from library import fine_tier
 
 
 @pytest.mark.parametrize('days,expected', [
-    (0, 'None'),
+    (0, 'None'), 
     (4, 'Low'),
     (10, 'Medium'),
     (20, 'High'),
