@@ -26,3 +26,24 @@ def test_validate_isbn_invalid(isbn):
     """Test invalid ISBNs."""
     with pytest.raises(ValueError):
         validate_isbn(isbn)
+
+        # ---------------------------------------------------------------
+# BVA Tests for ISBN Length (must be exactly 13 digits)
+# Boundaries: 11, 12, 13, 14, 15
+# ---------------------------------------------------------------
+
+@pytest.mark.parametrize('isbn', [
+    "12345678901",      # 11 digits (too short)
+    "123456789012",     # 12 digits (too short)
+    "12345678901234",   # 14 digits (too long)
+    "123456789012345",  # 15 digits (too long)
+])
+def test_validate_isbn_invalid_length(isbn):
+    """BVA: ISBNs with lengths 11, 12, 14, 15 should raise ValueError."""
+    with pytest.raises(ValueError):
+        validate_isbn(isbn)
+
+
+def test_validate_isbn_valid_length_13():
+    """BVA: ISBN with exactly 13 digits should be valid."""
+    assert validate_isbn("9780132350884") == True
