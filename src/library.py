@@ -90,18 +90,12 @@ class Library:
         book.return_book()
         self.member_books[member_id].remove(isbn)
 
-    def get_book_status(self, isbn: str) -> str:
+        def get_book_status(self, isbn: str) -> str:
         """
-        Get the status of a book. (DEF-008)
-
-        Args:
-            isbn: ISBN of the book
+        Get the status of a book.
 
         Returns:
             "Borrowed" or "Available"
-
-        Raises:
-            ValueError: If book not found
         """
         if isbn not in self.books:
             raise ValueError(f"Book with ISBN '{isbn}' not found in library")
