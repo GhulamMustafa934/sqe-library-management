@@ -29,9 +29,10 @@ def fine_tier(days_overdue: int) -> str:
 class Library:
     """A class representing a library with book borrowing functionality."""
 
-    def __init__(self):
-        """Initialize the library with empty member records."""
-        self.member_books = {}  # member_id -> list of borrowed book ISBNs
+        def __init__(self):
+        """Initialize the library with empty book and member records."""
+        self.books = {}          # DEF-009: Book collection
+        self.member_books = {}        self.member_books = {}  # member_id -> list of borrowed book ISBNs
 
     def borrow_book(self, member_id: str, isbn: str) -> None:
         """
