@@ -48,16 +48,12 @@ class Library:
             raise ValueError(f"Book with ISBN '{book.isbn}' already exists in library")
         self.books[book.isbn] = book
 
-    def borrow_book(self, member_id: str, isbn: str) -> None:
+        def borrow_book(self, member_id: str, isbn: str) -> None:
         """
-        Borrow a book for a member. (DEF-001, DEF-009)
-
-        Args:
-            member_id: Unique identifier for the member
-            isbn: ISBN of the book to borrow
+        Borrow a book for a member.
 
         Raises:
-            ValueError: If book not found, already borrowed, or limit reached
+        ValueError: If book not found, already borrowed, or limit reached
         """
         if isbn not in self.books:
             raise ValueError(f"Book with ISBN '{isbn}' not found in library")
