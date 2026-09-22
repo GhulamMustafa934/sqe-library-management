@@ -6,18 +6,23 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 from library import fine_tier
 
+
+# ---------------------------------------------------------------
+# Boundary tests for fine_tier
+# ---------------------------------------------------------------
+
 @pytest.mark.parametrize('days,expected', [
     # Boundary for None → Low
     (0, 'None'),
     (1, 'Low'),
 
     # Boundary for Low → Medium
-    (5, 'Low'),
-    (6, 'Medium'),
+    (7, 'Low'),
+    (8, 'Medium'),
 
     # Boundary for Medium → High
-    (15, 'Medium'),
-    (16, 'High'),
+    (14, 'Medium'),
+    (15, 'High'),
 
     # Boundary for High → Severe
     (30, 'High'),
@@ -26,8 +31,13 @@ from library import fine_tier
 def test_fine_tier_boundaries(days, expected):
     assert fine_tier(days) == expected
 
+
+# ---------------------------------------------------------------
+# Valid equivalence classes (EP)
+# ---------------------------------------------------------------
+
 @pytest.mark.parametrize('days,expected', [
-    (0, 'None'), 
+    (0, 'None'),
     (4, 'Low'),
     (10, 'Medium'),
     (20, 'High'),
@@ -37,10 +47,11 @@ def test_fine_tier_valid_classes(days, expected):
     assert fine_tier(days) == expected
 
 
-def test_fine_tier_negative_days_raises():
-    with pytest.raises(ValueError):
-        fine_tier(-3)
+# ---------------------------------------------------------------
+# Negative input should raise ValueError
+# ---------------------------------------------------------------
 
-def test_fine_tier_negative_days_raises():
+@pytest.mark.parametrize('days', [-3, -1])
+def test_fine_tier_negative_days_raises(days):
     with pytest.raises(ValueError):
-        fine_tier(-1)
+        fine_tier(days)
