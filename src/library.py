@@ -31,12 +31,12 @@ class Library:
 
     def __init__(self):
         """Initialize the library with empty book and member records."""
-        self.books = {}          # isbn -> Book object  (DEF-009)
-        self.member_books = {}   # member_id -> list of ISBNs
+        self.books = {}
+        self.member_books = {}
 
     def add_book(self, book) -> None:
         """
-        Add a book to the library collection. (DEF-006)
+        Add a book to the library collection.
 
         Args:
             book: Book object to add
@@ -48,12 +48,16 @@ class Library:
             raise ValueError(f"Book with ISBN '{book.isbn}' already exists in library")
         self.books[book.isbn] = book
 
-        def borrow_book(self, member_id: str, isbn: str) -> None:
+    def borrow_book(self, member_id: str, isbn: str) -> None:
         """
         Borrow a book for a member.
 
+        Args:
+            member_id: Unique identifier for the member
+            isbn: ISBN of the book to borrow
+
         Raises:
-        ValueError: If book not found, already borrowed, or limit reached
+            ValueError: If book not found, already borrowed, or limit reached
         """
         if isbn not in self.books:
             raise ValueError(f"Book with ISBN '{isbn}' not found in library")
@@ -90,12 +94,18 @@ class Library:
         book.return_book()
         self.member_books[member_id].remove(isbn)
 
-        def get_book_status(self, isbn: str) -> str:
+    def get_book_status(self, isbn: str) -> str:
         """
         Get the status of a book.
 
+        Args:
+            isbn: ISBN of the book
+
         Returns:
             "Borrowed" or "Available"
+
+        Raises:
+            ValueError: If book not found
         """
         if isbn not in self.books:
             raise ValueError(f"Book with ISBN '{isbn}' not found in library")
@@ -104,7 +114,7 @@ class Library:
 
     def search_book(self, query: str) -> list:
         """
-        Search books by title, author, or ISBN (case-insensitive). (DEF-007)
+        Search books by title, author, or ISBN (case-insensitive).
 
         Args:
             query: Search string
