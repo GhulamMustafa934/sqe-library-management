@@ -29,32 +29,107 @@ def fine_tier(days_overdue: int) -> str:
 class Library:
     """A class representing a library with book borrowing functionality."""
 
-        def __init__(self):
+    def __init__(self):
         """Initialize the library with empty book and member records."""
-        self.books = {}          # DEF-009: Book collection
-        self.member_books = {}        self.member_books = {}  # member_id -> list of borrowed book ISBNs
+        self.books = {}          # isbn -> Book object  (DEF-009)
+        self.member_books = {}   # member_id -> list of ISBNs
+
+    def add_book(self, book) -> None:
+        """
+        Add a book to the library collection. (DEF-006)
+
+        Args:
+            book: Book object to add
+
+        Raises:
+            ValueError: If a book with the same ISBN already exists
+        """
+        if book.isbn in self.books:
+            raise ValueError(f"Book with ISBN '{book.isbn}' already exists in library")
+        self.books[book.isbn] = book
 
     def borrow_book(self, member_id: str, isbn: str) -> None:
         """
-        Borrow a book for a member.
+        Borrow a book for a member. (DEF-001, DEF-009)
 
         Args:
             member_id: Unique identifier for the member
             isbn: ISBN of the book to borrow
 
         Raises:
-            ValueError: If member already has 5 books on loan
+            ValueError: If book not found, already borrowed, or limit reached
         """
-        # Initialize member's book list if not exists
+        if isbn not in self.books:
+            raise ValueError(f"Book with ISBN '{isbn}' not found in library")
+
+        book = self.books[isbn]
+
+        if book.is_borrowed:
+            raise ValueError(f"Book '{book.title}' is already borrowed")
+
         if member_id not in self.member_books:
             self.member_books[member_id] = []
 
-        # Check if member already has 5 books
         if len(self.member_books[member_id]) >= 5:
             raise ValueError(f"Member {member_id} already has 5 books on loan")
 
-        # Borrow the book
+        book.borrow_book()
         self.member_books[member_id].append(isbn)
+
+    def return_book(self, member_id: str, isbn: str) -> None:
+        """
+        Return a book from a member.
+
+        Args:
+            member_id: Unique identifier for the member
+            isbn: ISBN of the book to return
+
+        Raises:
+            ValueError: If member does not have this book on loan
+        """
+        if member_id not in self.member_books or isbn not in self.member_books[member_id]:
+            raise ValueError(f"Member {member_id} does not have book '{isbn}' on loan")
+
+        book = self.books[isbn]
+        book.return_book()
+        self.member_books[member_id].remove(isbn)
+
+    def get_book_status(self, isbn: str) -> str:
+        """
+        Get the status of a book. (DEF-008)
+
+        Args:
+            isbn: ISBN of the book
+
+        Returns:
+            "Borrowed" or "Available"
+
+        Raises:
+            ValueError: If book not found
+        """
+        if isbn not in self.books:
+            raise ValueError(f"Book with ISBN '{isbn}' not found in library")
+        book = self.books[isbn]
+        return "Borrowed" if book.is_borrowed else "Available"
+
+    def search_book(self, query: str) -> list:
+        """
+        Search books by title, author, or ISBN (case-insensitive). (DEF-007)
+
+        Args:
+            query: Search string
+
+        Returns:
+            List of matching Book objects
+        """
+        query = query.lower()
+        results = []
+        for book in self.books.values():
+            if (query in book.title.lower() or
+                query in book.author.lower() or
+                query == book.isbn):
+                results.append(book)
+        return results
 
     def get_borrowed_books_count(self, member_id: str) -> int:
         """
