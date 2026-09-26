@@ -7,6 +7,14 @@ from library import Library
 from book import Book
 
 
+@pytest.fixture(autouse=True)
+def reset_isbns():
+    """Reset the Book ISBN registry before and after each test."""
+    Book.reset_isbns()
+    yield
+    Book.reset_isbns()
+
+
 # ---------------------------------------------------------------
 # EP Tests
 # ---------------------------------------------------------------
@@ -18,16 +26,13 @@ def test_borrow_valid_limit(initial_books, member_id, expected_count):
     """Test that a member can borrow when under the limit."""
     library = Library()
 
-    # Add books to library FIRST (unique ISBNs)
     isbns = [f"10000000000{i:02d}" for i in range(initial_books + 1)]
     for i, isbn in enumerate(isbns):
         library.add_book(Book(f"Book {i}", "Author", isbn))
 
-    # Borrow initial books
     for i in range(initial_books):
         library.borrow_book(member_id, isbns[i])
 
-    # Borrow one more
     library.borrow_book(member_id, isbns[initial_books])
 
     assert library.get_borrowed_books_count(member_id) == expected_count
@@ -38,16 +43,13 @@ def test_borrow_exceeds_limit():
     library = Library()
     member_id = "M002"
 
-    # Add 6 books with unique ISBNs
     isbns = [f"20000000000{i:02d}" for i in range(6)]
     for i, isbn in enumerate(isbns):
         library.add_book(Book(f"Book {i}", "Author", isbn))
 
-    # Borrow 5 books
     for i in range(5):
         library.borrow_book(member_id, isbns[i])
 
-    # Try to borrow 6th
     with pytest.raises(ValueError) as exc_info:
         library.borrow_book(member_id, isbns[5])
 
