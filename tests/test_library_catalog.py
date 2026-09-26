@@ -68,60 +68,80 @@ def empty_library():
     Book.reset_isbns()
 
 
+@pytest.fixture
+def single_book_library():
+    """A library with exactly one book (single copy)."""
+    Book.reset_isbns()
+    library = Library()
+    library.add_book(Book("Clean Code", "R. Martin", "9780132350884", total_copies=1))
+    yield library
+    Book.reset_isbns()
+
+
 # =====================================================================
-# TESTS USING THE SHARED FIXTURE
+# TASK 2: total_available_copies() — 3 REQUIRED TESTS
 # =====================================================================
 
-def test_total_available_copies(populated_library):
-    """AAA: 2 + 1 + 3 = 6 available copies initially."""
+def test_total_available_copies_empty_catalog(empty_library):
+    """Task 2 — Empty catalog: 0 available copies."""
+    # Act
+    result = empty_library.total_available_copies()
+    # Assert
+    assert result == 0
+
+
+def test_total_available_copies_single_book(single_book_library):
+    """Task 2 — Single book: 1 available copy."""
+    # Act
+    result = single_book_library.total_available_copies()
+    # Assert
+    assert result == 1
+
+
+def test_total_available_copies_multiple_books(populated_library):
+    """Task 2 — Multiple books: 2 + 1 + 3 = 6 available copies."""
     # Act
     result = populated_library.total_available_copies()
     # Assert
     assert result == 6
 
 
+def test_total_available_copies_after_borrow(populated_library):
+    """Extra: borrowing reduces total available copies."""
+    populated_library.borrow_book("M001", "9780132350884")
+    assert populated_library.total_available_copies() == 5
+
+
+# =====================================================================
+# Other tests using the shared fixture
+# =====================================================================
+
 def test_borrow_reduces_available_copies(populated_library):
-    """After borrowing 1 copy of Clean Code, total drops from 6 to 5."""
-    # Arrange
     isbn = "9780132350884"
-    # Act
     populated_library.borrow_book("M001", isbn)
-    # Assert
     assert populated_library.total_available_copies() == 5
 
 
 def test_get_book_status_available(populated_library):
-    """Clean Code has copies available."""
     assert populated_library.get_book_status("9780132350884") == "Available"
 
 
 def test_get_book_status_borrowed(populated_library):
-    """A single-copy book becomes Borrowed once borrowed."""
-    isbn = "9780135957059"  # only 1 copy
+    isbn = "9780135957059"
     populated_library.borrow_book("M001", isbn)
     assert populated_library.get_book_status(isbn) == "Borrowed"
 
 
 def test_search_book_by_title(populated_library):
-    """Search is case-insensitive and matches partial titles."""
     results = populated_library.search_book("clean")
     assert len(results) == 1
     assert results[0].title == "Clean Code"
 
 
 def test_search_book_by_author(populated_library):
-    """Search matches author names case-insensitively."""
     results = populated_library.search_book("fowler")
     assert len(results) == 1
     assert results[0].author == "M. Fowler"
-
-
-# =====================================================================
-# EDGE-CASE TESTS USING THE EMPTY LIBRARY FIXTURE
-# =====================================================================
-
-def test_empty_library_has_zero_available_copies(empty_library):
-    assert empty_library.total_available_copies() == 0
 
 
 def test_empty_library_search_returns_empty_list(empty_library):
