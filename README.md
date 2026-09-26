@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/Python-3.14+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Pytest](https://img.shields.io/badge/Tested_with-Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)](https://pytest.org/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-D22128?style=for-the-badge&logo=apache&logoColor=white)](./LICENSE)
-[![Status](https://img.shields.io/badge/Tests-14%2F14_Passing-2ECC71?style=for-the-badge&logo=checkmarx&logoColor=white)]()
+[![Status](https://img.shields.io/badge/Tests-66%2F66_Passing-2ECC71?style=for-the-badge&logo=checkmarx&logoColor=white)]()
 
 </div>
 
@@ -47,6 +47,7 @@ This project was developed to demonstrate practical mastery of:
 |:---:|:---|
 | 🐍 **Python 3.14+** | Core logic & test implementation |
 | ✅ **Pytest** | Unit testing & test automation |
+| 🎭 **pytest-mock** | Mocking file I/O and dependencies |
 | 🔀 **Git & GitHub** | Version control & collaboration |
 | 📄 **Markdown** | Documentation & reporting |
 
@@ -60,12 +61,18 @@ This project was developed to demonstrate practical mastery of:
 sqe-library-management/
 │
 ├── src/
-│   └── library.py              # Core functions (fine_tier, validate_isbn, Library class)
+│   ├── book.py                 # Book class with copies support
+│   └── library.py              # Library class + fine_tier + validate_isbn
 │
 ├── tests/
-│   ├── test_fine_tier.py       # EP tests for overdue fine tiers
-│   ├── test_borrow_limit.py    # EP tests for borrow limit
-│   └── test_validate_isbn.py   # EP tests for ISBN validation
+│   ├── __init__.py                        # Marks tests as a package
+│   ├── test_library_catalog.py            # Fixture-based tests (Task 1 & 2)
+│   ├── test_export_catalog.py             # Mocked file I/O tests (Task 3)
+│   ├── test_borrow_book_parametrized.py   # Parametrized edge cases (Task 4)
+│   ├── test_borrow_limit.py               # EP + BVA borrow limit tests
+│   ├── test_fine_tier.py                  # EP fine tier tests
+│   ├── test_fine_tier_bva.py              # BVA fine tier tests
+│   └── test_validate_isbn.py              # ISBN validation tests
 │
 ├── docs/
 │   ├── ep-analysis.md          # Equivalence Partitioning analysis
@@ -73,12 +80,14 @@ sqe-library-management/
 │   ├── test-cases.md           # 12 Test Cases with execution results
 │   ├── rtm.md                  # Requirements Traceability Matrix
 │   ├── triage-log.md           # Issue prioritization log
-│   └── workflow-notes.md       # Workflow reflection
+│   ├── workflow-notes.md       # Workflow reflection
+│   └── unit-testing-notes.md   # pytest output comparison & fixture scopes
 │
 ├── .github/
 │   ├── ISSUE_TEMPLATE/         # Bug and feature request templates
 │   └── workflows/              # CI/CD workflows (future)
 │
+├── pytest.ini                  # pytest configuration
 ├── README.md
 ├── LICENSE
 └── .gitignore
@@ -91,14 +100,15 @@ sqe-library-management/
 ### ✅ Prerequisites
 
 - Python 3.14 or higher
-- Pytest (for running tests)
+- Pytest
+- pytest-mock (for mocked tests)
 
 ### 📥 Installation
 
 ```bash
 git clone https://github.com/GhulamMustafa934/sqe-library-management.git
 cd sqe-library-management
-pip install pytest
+pip install pytest pytest-mock
 ```
 
 ### ▶️ Running Tests
@@ -112,6 +122,9 @@ pytest tests/ -v
 Or run individual test files:
 
 ```bash
+pytest tests/test_library_catalog.py -v
+pytest tests/test_export_catalog.py -v
+pytest tests/test_borrow_book_parametrized.py -v
 pytest tests/test_fine_tier.py -v
 pytest tests/test_borrow_limit.py -v
 pytest tests/test_validate_isbn.py -v
@@ -125,10 +138,14 @@ pytest tests/test_validate_isbn.py -v
 
 | Test File | Test Cases | Status |
 |---|:---:|:---:|
-| `test_fine_tier.py` | 6 | ✅ Passing |
-| `test_borrow_limit.py` | 2 | ✅ Passing |
-| `test_validate_isbn.py` | 6 | ✅ Passing |
-| **Total** | **14** | **✅ All Passing** |
+| `test_library_catalog.py` | 10 | ✅ Passing |
+| `test_export_catalog.py` | 3 | ✅ Passing |
+| `test_borrow_book_parametrized.py` | 8 | ✅ Passing |
+| `test_borrow_limit.py` | 4 | ✅ Passing |
+| `test_fine_tier.py` | 15 | ✅ Passing |
+| `test_fine_tier_bva.py` | 15 | ✅ Passing |
+| `test_validate_isbn.py` | 11 | ✅ Passing |
+| **Total** | **66** | **✅ All Passing** |
 
 </div>
 
@@ -146,8 +163,10 @@ All project documentation lives in the [`docs/`](./docs) folder:
 | 🧾 [`test-cases.md`](./docs/test-cases.md) | 12 detailed test cases with execution results |
 | 🔗 [`rtm.md`](./docs/rtm.md) | Requirements Traceability Matrix (100% coverage) |
 | 🧩 [`ep-analysis.md`](./docs/ep-analysis.md) | Equivalence Partitioning analysis |
+| 📈 [`bva-analysis.md`](./docs/bva-analysis.md) | Boundary Value Analysis |
 | 🐞 [`triage-log.md`](./docs/triage-log.md) | Issue prioritization and triage decisions |
 | 💭 [`workflow-notes.md`](./docs/workflow-notes.md) | Development workflow reflection |
+| 🧪 [`unit-testing-notes.md`](./docs/unit-testing-notes.md) | pytest output comparison & fixture scopes |
 
 ---
 
