@@ -60,3 +60,17 @@ def test_rank_books_tie_breaker_alphabetical():
     result = rank_books_by_popularity(library)
     
     assert result == [b_apple, b_zebra]
+
+def test_rank_books_never_borrowed_mixed_with_borrowed():
+    """A book with 0 borrows should rank below a book with >0 borrows."""
+    library = Library()
+    never_borrowed = make_book("New Book", "6666666666666", 0)
+    popular_book = make_book("Popular Book", "7777777777777", 10)
+    
+    library.add_book(never_borrowed)
+    library.add_book(popular_book)
+    
+    result = rank_books_by_popularity(library)
+    
+    # Expected: Popular book first, then the never-borrowed book
+    assert result == [popular_book, never_borrowed]
