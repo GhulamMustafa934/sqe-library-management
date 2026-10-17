@@ -142,3 +142,12 @@ class Library:
                             f"{book.total_copies},{book.borrowed_copies}\n")
         except OSError as e:
             raise LibraryIOError(f"Failed to export catalog: {e}") from e
+
+
+# =========================================================
+# LAB 8: TDD NEW FEATURES
+# =========================================================
+
+def rank_books_by_popularity(library: Library) -> list:
+    """Return a list of books ranked by popularity."""
+    return list(library.books.values())
