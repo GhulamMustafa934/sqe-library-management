@@ -12,6 +12,12 @@ def clean_isbns():
     Book.reset_isbns()
     yield
 
+def make_book(title, isbn, times_borrowed=0):
+    """Helper to create a book with a specific borrow count."""
+    b = Book(title, "Author", isbn)
+    b.times_borrowed = times_borrowed
+    return b
+
 def test_rank_books_empty_catalog_returns_empty_list():
     library = Library()
     assert rank_books_by_popularity(library) == []
@@ -27,18 +33,12 @@ def test_rank_books_single_book():
     assert len(result) == 1
     assert result[0] == book
 
-
-    def test_rank_books_descending_by_borrow_count():
+def test_rank_books_descending_by_borrow_count():
     """3 books with distinct borrow counts should rank highest-to-lowest."""
     library = Library()
-    b1 = Book("Book A", "Author", "1111111111111")
-    b2 = Book("Book B", "Author", "2222222222222")
-    b3 = Book("Book C", "Author", "3333333333333")
-    
-    # Simulate borrow counts (we will add times_borrowed to Book)
-    b1.times_borrowed = 5
-    b2.times_borrowed = 10
-    b3.times_borrowed = 2
+    b1 = make_book("Book A", "1111111111111", 5)
+    b2 = make_book("Book B", "2222222222222", 10)
+    b3 = make_book("Book C", "3333333333333", 2)
     
     library.add_book(b1)
     library.add_book(b2)

@@ -28,6 +28,7 @@ class Book:
         self.isbn = isbn
         self.total_copies = total_copies
         self.borrowed_copies = 0
+        self.times_borrowed = 0  # Track total times borrowed for Lab 8
         Book._existing_isbns.add(isbn)
 
     @property
@@ -49,6 +50,7 @@ class Book:
         if self.available_copies <= 0:
             raise ValueError(f"Book '{self.title}' has no available copies")
         self.borrowed_copies += 1
+        self.times_borrowed += 1  # Increment total times borrowed
 
     def return_book(self) -> None:
         """
