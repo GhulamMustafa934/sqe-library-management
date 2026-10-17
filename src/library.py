@@ -148,6 +148,10 @@ class Library:
 # LAB 8: TDD NEW FEATURES
 # =========================================================
 
+def _sort_key(book):
+    """Helper to sort books by popularity, then title."""
+    return (-book.times_borrowed, book.title)
+
 def rank_books_by_popularity(library: Library) -> list:
     """Return a list of books ranked by popularity."""
-    return sorted(library.books.values(), key=lambda b: b.times_borrowed, reverse=True)
+    return sorted(library.books.values(), key=_sort_key)
