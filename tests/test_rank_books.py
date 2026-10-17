@@ -46,14 +46,11 @@ def test_rank_books_descending_by_borrow_count():
     
     result = rank_books_by_popularity(library)
     
-    # Expected order: b2 (10), b1 (5), b3 (2)
     assert result == [b2, b1, b3]
 
-
-    def test_rank_books_tie_breaker_alphabetical():
+def test_rank_books_tie_breaker_alphabetical():
     """Two books with identical borrow counts should be sorted alphabetically by title."""
     library = Library()
-    # Same borrow count (5), but "Zebra" comes after "Apple"
     b_zebra = make_book("Zebra", "4444444444444", 5)
     b_apple = make_book("Apple", "5555555555555", 5)
     
@@ -62,5 +59,4 @@ def test_rank_books_descending_by_borrow_count():
     
     result = rank_books_by_popularity(library)
     
-    # Expected: Apple first, then Zebra
     assert result == [b_apple, b_zebra]
