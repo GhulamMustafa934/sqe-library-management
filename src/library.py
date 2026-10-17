@@ -150,4 +150,4 @@ class Library:
 
 def rank_books_by_popularity(library: Library) -> list:
     """Return a list of books ranked by popularity."""
-    return list(library.books.values())
+    return sorted(library.books.values(), key=lambda b: b.times_borrowed, reverse=True)
