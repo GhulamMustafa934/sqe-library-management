@@ -26,3 +26,10 @@
 **Most Valuable Checklist Item:** The "Correctness" checklist item (specifically checking boundary conditions) caught the most valuable issue. It helped me identify the off-by-one error in the `borrow_percentile` function, which would have caused incorrect percentile calculations for the top-ranked members. 
 
 **New Item to Add:** In the future, I would add a checklist item under "Risk" that specifically asks: *"Does the code handle empty collections or zero-division scenarios?"* This would have forced me to catch the missing empty-library test earlier.
+
+
+## Lessons Learned
+
+**Most Valuable Checklist Item:** The "Correctness" checklist item (specifically checking boundary conditions) caught the most valuable issue. It helped me identify the off-by-one error in the `borrow_percentile` function, which would have caused incorrect percentile calculations for the top-ranked members. 
+
+**New Item to Add:** In the future, I would add a checklist item under "Risk" that specifically asks: *"Does the code handle empty collections or zero-division scenarios?"* This would have forced me to catch the missing empty-library test earlier.
