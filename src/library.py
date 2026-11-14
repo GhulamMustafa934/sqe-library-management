@@ -156,20 +156,23 @@ def rank_books_by_popularity(library: Library) -> list:
     """Return a list of books ranked by popularity."""
     return sorted(library.books.values(), key=_sort_key)
 
-    def borrow_percentile(member_id: str, library: Library) -> float:
-    # Deliberate flaw 3: Missing docstring
-    # Get all members and their borrow counts
+
+# =========================================================
+# LAB 9: CODE REVIEW FIXES
+# =========================================================
+
+def borrow_percentile(member_id: str, library: Library) -> float:
+    """Calculate the borrow percentile of a member."""
     member_counts = [(m, len(books)) for m, books in library.member_books.items()]
     
-    # Sort descending
     member_counts.sort(key=lambda x: x[1], reverse=True)
     
     total_members = len(member_counts)
     
-    # Deliberate flaw 1: Off-by-one logic error 
-    # (Dividing by total_members instead of total_members - 1)
     for i, (m_id, count) in enumerate(member_counts):
         if m_id == member_id:
-            return (i / total_members) * 100
+            # The top member is at index 0, so we calculate their percentile
+            # from the bottom up: (total_members - i) / total_members * 100
+            return ((total_members - i) / total_members) * 100 if total_members > 0 else 0.0
             
     return 0.0

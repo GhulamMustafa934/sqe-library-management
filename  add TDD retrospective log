@@ -1,0 +1,15 @@
+[33mb8b3a92[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/rank-books-tdd[m[33m)[m refactor(rank): extract sort key into helper function
+[33mefdf366[m feat(rank): green - edge case already handled by sort logic
+[33m5ff4b9c[m test(rank): red - edge case never borrowed mixed with borrowed
+[33ma19fffc[m refactor(rank): verify full regression suite passes
+[33mae1deeb[m test(rank): red - tie-breaker alphabetical by title
+[33m42b2dc5[m test(rank): red - tie-breaker alphabetical by title
+[33m6f193dc[m feat(rank): green - implement descending sort by times borrowed
+[33mf77e351[m test(rank): red - descending sort by borrow count
+[33me457194[m test(rank): red - descending sort by borrow count
+[33mcceaa70[m refactor(rank): move isbn reset to pytest fixture
+[33m5c72431[m test(rank): red - single book returns list with that book
+[33m98bce70[m test(rank): red - empty catalog returns empty list
+[33mb84c605[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Update README with test results and new dependencies
+[33mfaaa38c[m fix: rewrite pytest.ini without BOM and ensure trailing newline (#32)
+[33m282543f[m fix: remove BOM from pytest.ini to allow pytest parsing

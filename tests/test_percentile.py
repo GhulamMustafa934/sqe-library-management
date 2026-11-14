@@ -21,5 +21,13 @@ def test_borrow_percentile_multiple_members():
     library.borrow_book("M2", b2.isbn)
     
     # M1 is ranked 1st (top), so their percentile should be 100
-    # But due to the off-by-one bug, it will return 50.0
+    assert borrow_percentile("M1", library) == 100.0
+
+def test_borrow_percentile_single_member():
+    # Edge case test added to fix the missing test
+    library = Library()
+    b = Book("Book 1", "Author", "3333333333333")
+    library.add_book(b)
+    library.borrow_book("M1", b.isbn)
+    
     assert borrow_percentile("M1", library) == 100.0
