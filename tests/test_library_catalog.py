@@ -117,9 +117,14 @@ def test_total_available_copies_after_borrow(populated_library):
 # =====================================================================
 
 def test_borrow_reduces_available_copies(populated_library):
+    """Updated for Task 4: Strengthened assertions to avoid coverage trap."""
     isbn = "9780132350884"
     populated_library.borrow_book("M001", isbn)
+    
+    # Stronger assertions
     assert populated_library.total_available_copies() == 5
+    assert populated_library.get_book_status(isbn) == "Available"
+    assert populated_library.get_borrowed_books_count("M001") == 1
 
 
 def test_get_book_status_available(populated_library):
